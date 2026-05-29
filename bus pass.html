@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Pass Transport Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-bus"></i>
+            <h2>BusPass</h2>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" onclick="showSection('home')" class="nav-link active" data-section="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" onclick="showSection('apply')" class="nav-link" data-section="apply">
+                <i class="fas fa-file-alt"></i>
+                <span>Apply Pass</span>
+            </a>
+            <a href="#" onclick="showSection('view')" class="nav-link" data-section="view">
+                <i class="fas fa-search"></i>
+                <span>View Pass</span>
+            </a>
+            <a href="#" onclick="showSection('admin')" class="nav-link" data-section="admin">
+                <i class="fas fa-cog"></i>
+                <span>Admin Panel</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">
+                <h1 id="page-title">Bus Pass Management</h1>
+                <p id="page-subtitle">Manage your bus passes efficiently</p>
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">0</span>
+                </button>
+                <div class="user-profile">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="dashboard-grid">
+                <div class="dashboard-card card-home">
+                    <div class="card-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3>Quick Apply</h3>
+                    <p>Apply for a new bus pass in minutes</p>
+                    <button class="btn btn-primary" onclick="showSection('apply')">Apply Now</button>
+                </div>
+
+                <div class="dashboard-card card-home">
+                    <div class="card-icon">
+                        <i class="fas fa-magnifying-glass"></i>
+                    </div>
+                    <h3>Search Pass</h3>
+                    <p>Find and view your existing bus pass</p>
+                    <button class="btn btn-primary" onclick="showSection('view')">Search</button>
+                </div>
+
+                <div class="dashboard-card card-home">
+                    <div class="card-icon">
+                        <i class="fas fa-bar-chart"></i>
+                    </div>
+                    <h3>Statistics</h3>
+                    <p>View system statistics and analytics</p>
+                    <button class="btn btn-primary" onclick="showSection('admin')">View</button>
+                </div>
+
+                <div class="dashboard-card card-home">
+                    <div class="card-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Help & Support</h3>
+                    <p>Get answers to common questions</p>
+                    <button class="btn btn-primary" onclick="alert('Contact us at support@buspass.com')">Contact</button>
+                </div>
+
+                <div class="dashboard-card card-home">
+                    <div class="card-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>Learn About Us</h3>
+                    <p>Read our comprehensive project article</p>
+                    <button class="btn btn-primary" onclick="window.location.href='article.html'">Read Article</button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>About Bus Pass System</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-check-circle"></i> Easy Application</h4>
+                        <p>Fill out simple form and get instant digital pass</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-lock"></i> Secure</h4>
+                        <p>Your data is securely stored locally</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-mobile-alt"></i> Mobile Ready</h4>
+                        <p>Access your pass anytime, anywhere</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-zap"></i> Fast Processing</h4>
+                        <p>Get your bus pass instantly after submission</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Apply Pass Section -->
+        <section id="apply" class="section">
+            <div class="form-container">
+                <h2>Apply for Bus Pass</h2>
+                <form id="passForm" class="bus-pass-form">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name" required>
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" placeholder="18" min="10" max="100" required>
+                                <span class="error-message" id="ageError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender *</label>
+                                <select id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span class="error-message" id="genderError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-phone"></i> Contact Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="mobile">Mobile Number *</label>
+                                <input type="tel" id="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                                <span class="error-message" id="mobileError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" placeholder="your.email@example.com" required>
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address *</label>
+                            <textarea id="address" placeholder="Enter your full address" rows="3" required></textarea>
+                            <span class="error-message" id="addressError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Route Information -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-map-marker-alt"></i> Route Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="source">Source *</label>
+                                <input type="text" id="source" placeholder="Starting point" required>
+                                <span class="error-message" id="sourceError"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="destination">Destination *</label>
+                                <input type="text" id="destination" placeholder="Ending point" required>
+                                <span class="error-message" id="destinationError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pass Type -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-ticket-alt"></i> Pass Type</h3>
+                        <div class="pass-type-group">
+                            <label class="pass-type-option">
+                                <input type="radio" name="passType" value="Student" required>
+                                <span class="pass-type-label">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <strong>Student</strong>
+                                    <small>₹500/month</small>
+                                </span>
+                            </label>
+                            <label class="pass-type-option">
+                                <input type="radio" name="passType" value="Monthly" required>
+                                <span class="pass-type-label">
+                                    <i class="fas fa-briefcase"></i>
+                                    <strong>Monthly</strong>
+                                    <small>₹800/month</small>
+                                </span>
+                            </label>
+                            <label class="pass-type-option">
+                                <input type="radio" name="passType" value="Senior Citizen" required>
+                                <span class="pass-type-label">
+                                    <i class="fas fa-wheelchair"></i>
+                                    <strong>Senior Citizen</strong>
+                                    <small>₹300/month</small>
+                                </span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="passTypeError"></span>
+                    </div>
+
+                    <!-- Document Upload -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-file-upload"></i> Document Upload</h3>
+                        <div class="file-upload-group">
+                            <label for="idProof" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload or drag ID Proof</span>
+                                <small>PDF, JPG or PNG (Max 5MB)</small>
+                                <input type="file" id="idProof" accept=".pdf,.jpg,.jpeg,.png" required>
+                            </label>
+                            <span class="error-message" id="idProofError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Clear Form
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check"></i> Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Generated Pass Display -->
+            <div id="generatedPassContainer" style="display: none;">
+                <div class="generated-pass-section">
+                    <h2>Your Bus Pass</h2>
+                    <div class="pass-card">
+                        <div class="pass-header">
+                            <div class="pass-logo">
+                                <i class="fas fa-bus"></i>
+                            </div>
+                            <div class="pass-title">
+                                <h3>Bus Pass</h3>
+                                <p id="passTypeDisplay"></p>
+                            </div>
+                            <div class="pass-status">
+                                <span class="status-badge active">Active</span>
+                            </div>
+                        </div>
+
+                        <div class="pass-body">
+                            <div class="pass-info">
+                                <div class="info-row">
+                                    <span class="label">Passenger Name:</span>
+                                    <span class="value" id="passName"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Pass ID:</span>
+                                    <span class="value" id="passId"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Route:</span>
+                                    <span class="value" id="passRoute"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Validity:</span>
+                                    <span class="value" id="passValidity"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Age:</span>
+                                    <span class="value" id="passAge"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Mobile:</span>
+                                    <span class="value" id="passMobile"></span>
+                                </div>
+                            </div>
+
+                            <div class="pass-qr">
+                                <div id="qrCodeContainer"></div>
+                                <small>Scan for Details</small>
+                            </div>
+                        </div>
+
+                        <div class="pass-footer">
+                            <p>This pass is valid for 30 days from issue date</p>
+                        </div>
+                    </div>
+
+                    <div class="pass-actions">
+                        <button class="btn btn-secondary" onclick="downloadPassPDF()">
+                            <i class="fas fa-download"></i> Download Pass
+                        </button>
+                        <button class="btn btn-secondary" onclick="printPass()">
+                            <i class="fas fa-print"></i> Print Pass
+                        </button>
+                        <button class="btn btn-primary" onclick="applyAnother()">
+                            <i class="fas fa-plus"></i> Apply Another
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- View Pass Section -->
+        <section id="view" class="section">
+            <div class="search-section">
+                <h2>View Your Bus Pass</h2>
+                <div class="search-container">
+                    <div class="search-options">
+                        <div class="search-group">
+                            <label for="searchType">Search By:</label>
+                            <select id="searchType" onchange="updateSearchPlaceholder()">
+                                <option value="passId">Pass ID</option>
+                                <option value="mobile">Mobile Number</option>
+                                <option value="name">Name</option>
+                            </select>
+                        </div>
+                        <div class="search-group flex-grow">
+                            <input type="text" id="searchInput" placeholder="Enter Pass ID" onkeyup="searchPass()">
+                            <button class="btn btn-primary" onclick="searchPass()">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div id="searchResults"></div>
+        </section>
+
+        <!-- Admin Panel Section -->
+        <section id="admin" class="section">
+            <div class="admin-container">
+                <h2>Admin Panel</h2>
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Passes</h4>
+                            <p class="stat-number" id="totalPasses">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Active Passes</h4>
+                            <p class="stat-number" id="activePasses">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Total Users</h4>
+                            <p class="stat-number" id="totalUsers">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-hourglass-end"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>Expired Passes</h4>
+                            <p class="stat-number" id="expiredPasses">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="admin-filters">
+                    <button class="filter-btn active" onclick="filterPasses('all')">All</button>
+                    <button class="filter-btn" onclick="filterPasses('Student')">Student</button>
+                    <button class="filter-btn" onclick="filterPasses('Monthly')">Monthly</button>
+                    <button class="filter-btn" onclick="filterPasses('Senior Citizen')">Senior Citizen</button>
+                </div>
+
+                <!-- Passes Table -->
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Pass ID</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Pass Type</th>
+                                <th>Route</th>
+                                <th>Validity</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="passTableBody">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
+                    <div id="emptyTableMessage" class="empty-message" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <p>No passes found</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- Modal for Pass Details -->
+    <div id="passModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closePassModal()">&times;</span>
+            <div id="modalPassDetails"></div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
