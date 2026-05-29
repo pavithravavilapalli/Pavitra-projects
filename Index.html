@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Pass Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚌 Bus Pass Management System</h1>
+            <p>Manage your bus passes efficiently</p>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <h2>Add New Bus Pass</h2>
+                <form id="busPassForm">
+                    <div class="form-group">
+                        <label for="passId">Pass ID:</label>
+                        <input type="text" id="passId" placeholder="Enter Pass ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passengerName">Passenger Name:</label>
+                        <input type="text" id="passengerName" placeholder="Enter Full Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passType">Pass Type:</label>
+                        <select id="passType" required>
+                            <option value="">Select Pass Type</option>
+                            <option value="daily">Daily Pass</option>
+                            <option value="weekly">Weekly Pass</option>
+                            <option value="monthly">Monthly Pass</option>
+                            <option value="yearly">Yearly Pass</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="issueDate">Issue Date:</label>
+                        <input type="date" id="issueDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date:</label>
+                        <input type="date" id="expiryDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Amount Paid (₹):</label>
+                        <input type="number" id="amount" placeholder="Enter Amount" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="routes">Routes Covered:</label>
+                        <input type="text" id="routes" placeholder="Enter Routes (comma-separated)" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Bus Pass</button>
+                </form>
+            </section>
+
+            <section class="display-section">
+                <h2>Bus Passes List</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search by Pass ID or Passenger Name...">
+                </div>
+                <div id="passesContainer" class="passes-container">
+                    <p class="no-data">No bus passes added yet.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Bus Pass Management System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
